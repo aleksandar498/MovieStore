@@ -1,0 +1,48 @@
+﻿@model  IEnumerable<MovieStore.Models.Rental>
+@{
+    ViewBag.Title = "Rentals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Rentals</h2>
+<p>
+    @Html.ActionLink("New Rental", "New", "NewRental", null, new { @class = "btn btn-primary" })
+</p>
+
+@if (!Model.Any())
+{
+    <p>We don't have any customers yet.</p>
+}
+else
+{
+
+    <table id="rental" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Customer</th>
+            <th>Date Rented</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var rental in Model)
+        {
+            <tr>
+                <td>@rental.Movie.Name</td>
+                <td>@rental.Customer.Name</td>
+                <td>@rental.DateRendted</td>
+                <td>@Html.ActionLink("Delete", "deleteRental", "NewRental", new {id = rental.Id}, null)</td>
+
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#rental").DataTable();
+        });
+    </script>
+}
